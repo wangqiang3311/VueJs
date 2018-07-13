@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>To-do CRUD</title>
+    <style>
+        input[type='submit'], button, [aria-label] {
+            cursor: pointer;
+        }
+
+        table {
+            font-family: Arial, sans-serif;
+            border: 1px solid;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #0066CC;
+            color: white;
+        }
+
+        td {
+            border: 1px solid;
+            padding: 5px;
+        }
+    </style>
+<script src="vue.js"></script>
+</head>
+<body>
+    <h1>To-do CRUD</h1>
+    <h3>Add</h3>
+    <div id="app-4">
+    <form action="javascript:void(0);" method="POST" v-on:submit.prevent="addItem">
+        <input type="text" id="add-name" v-model="inputName" placeholder="New to-do">
+        <input type="submit" value="Add">
+    </form>
+
+    <div id="spoiler" v-if="seen">
+        <h3>Edit</h3>
+        <form class="my-form"  v-on:submit.prevent="updateItem">
+            <input type="hidden" id="edit-id" v-model.number="selectedId">
+            <input type="checkbox" id="edit-isComplete" v-model="ischoose">
+            <input type="text" id="edit-name" v-model="selectedName">
+            <input type="submit" v-on:keyup.enter="submit" value="Edit">
+            <a v-on:click="closeInput" aria-label="Close">&#10006;</a>
+        </form>
+    </div>
+
+    <p id="counter"></p>
+
+
+    <table>
+        <tr>
+            <th>Is Complete</th>
+            <th>Name</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tbody>
+
+        <tr v-for="todo in todos">
+            <td><input :disabled="todo.enabled" type="checkbox"></td>
+            <td>{{ todo.name }}</td>
+            <td><button v-on:click="editItem(todo.id)">Edit</button></td>
+            <td><button v-on:click="deleteItem(todo.id)">Delete</button></td>
+        </tr>
+
+        </tbody>
+    </table>
+
+</div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="site.js"></script>
+
+</body>
+</html>
